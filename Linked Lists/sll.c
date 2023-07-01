@@ -15,7 +15,7 @@ struct node *create_ll(struct node *);
 // struct node *delete_beg(struct node *);
 // struct node *delete_end(struct node *);
 // struct node *delete_after(struct node *);
-// struct node *display(struct node *);
+struct node *display(struct node *);
 
 int main() {
     int choice;
@@ -33,7 +33,7 @@ int main() {
         printf(" 9. Display the list \n ");
         printf(" 10. Exit \n ");
 
-        printf("Enter a value: \n");
+        printf("Enter a value: ");
         scanf("%d", &choice);
 
         switch(choice) {
@@ -62,9 +62,9 @@ int main() {
             // case 8:
             //         start = delete_after(start);
             //         break;
-            // case 9: 
-            //         start = display(start);
-            //         break;
+            case 9: 
+                    start = display(start);
+                    break;
             default: 
                     printf("Enter a valid choice: ");
                     break;
@@ -77,9 +77,10 @@ int main() {
 struct node *create_ll(struct node *start) {
     struct node *new_node, *ptr;
     int val;
-    printf("Enter a value: \n");
-    scanf("%d", &val);
     printf(" Enter -1 to exit \n");
+    printf("Enter a value: ");
+    scanf("%d", &val);
+
     while( val != -1 ) {
     new_node = (struct node *)malloc(sizeof(struct node));
     new_node->data = val;
@@ -96,9 +97,28 @@ struct node *create_ll(struct node *start) {
             new_node->next = NULL;
     }
 
-    printf("Enter a value: \n");
+    printf("Enter a value: ");
     scanf("%d", &val);
 
     }
+
+    return start;
 }
 
+struct node *display(struct node *start) 
+{
+    struct node *ptr;
+    if( start == NULL) {
+        printf("List is Empty");
+    }
+    else {
+        ptr = start;
+        while( ptr != NULL)
+            {
+                printf("%d", ptr->data);
+                ptr = ptr->next;
+            }
+    }
+
+    return start;
+}
