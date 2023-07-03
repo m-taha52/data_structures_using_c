@@ -8,7 +8,7 @@ struct node {
 
 struct node *start;
 struct node *create_ll(struct node *);
-// struct node *insert_beg(struct node *);
+struct node *insert_beg(struct node *);
 // struct node *insert_end(struct node *);
 // struct node *insert_before(struct node *);
 // struct node *insert_after(struct node *);
@@ -21,17 +21,17 @@ int main() {
     int choice;
     do {
         
-        printf(" ******* MAIN MENU ******* \n");
-        printf(" 1. Create a Linked List \n");
-        printf(" 2. Insert a node in the beginning \n");
-        printf(" 3. Insert a node in the end \n ");
-        printf(" 4. Insert a node before another node \n ");
-        printf(" 5. Insert a node after another node \n ");
-        printf(" 6. Delete a node from the beginning \n ");
-        printf(" 7. Delete a node from the end \n ");
-        printf(" 8. Delete a node after another node \n ");
-        printf(" 9. Display the list \n ");
-        printf(" 10. Exit \n ");
+        printf(" ******* MAIN MENU *******\n");
+        printf(" 1. Create a Linked List\n");
+        printf(" 2. Insert a node in the beginning\n");
+        printf(" 3. Insert a node in the end\n");
+        printf(" 4. Insert a node before another node\n");
+        printf(" 5. Insert a node after another node\n");
+        printf(" 6. Delete a node from the beginning\n");
+        printf(" 7. Delete a node from the end\n");
+        printf(" 8. Delete a node after another node\n");
+        printf(" 9. Display the list\n");
+        printf(" 10. Exit\n");
 
         printf("Enter a value: ");
         scanf("%d", &choice);
@@ -41,9 +41,9 @@ int main() {
             case 1:
                     start = create_ll(start);
                     break;
-            // case 2:
-            //         start = insert_beg(start);
-            //         break;
+            case 2:
+                    start = insert_beg(start);
+                    break;
             // case 3: 
             //         start = insert_end(start);
             //         break;
@@ -77,6 +77,7 @@ int main() {
 struct node *create_ll(struct node *start) {
     struct node *new_node, *ptr;
     int val;
+    printf("\n");
     printf(" Enter -1 to exit \n");
     printf("Enter a value: ");
     scanf("%d", &val);
@@ -115,10 +116,22 @@ struct node *display(struct node *start)
         ptr = start;
         while( ptr != NULL)
             {
-                printf("%d", ptr->data);
+                printf("%d \n", ptr->data);
                 ptr = ptr->next;
             }
     }
 
     return start;
+}
+
+struct node *insert_beg(struct node *start) 
+{
+    struct node *new_node;
+    new_node = (struct node *)malloc(sizeof(struct node));
+    int val;
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    new_node->data = val;
+    new_node->next = start;
+    start = new_node;
 }
