@@ -12,9 +12,9 @@ struct node *insert_beg(struct node *);
 struct node *insert_end(struct node *);
 struct node *insert_before(struct node *);
 struct node *insert_after(struct node *);
-// struct node *delete_beg(struct node *);
-// struct node *delete_end(struct node *);
-// struct node *delete_after(struct node *);
+struct node *delete_beg(struct node *);
+struct node *delete_end(struct node *);
+struct node *delete_after(struct node *);
 struct node *display(struct node *);
 
 int main() {
@@ -53,15 +53,15 @@ int main() {
             case 5: 
                     start = insert_after(start);
                     break;
-            // case 6: 
-            //         start = delete_beg(start);
-            //         break;
-            // case 7:
-            //         start = delete_end(start);
-            //         break;
-            // case 8:
-            //         start = delete_after(start);
-            //         break;
+            case 6: 
+                    start = delete_beg(start);
+                    break;
+            case 7:
+                    start = delete_end(start);
+                    break;
+            case 8:
+                    start = delete_after(start);
+                    break;
             case 9: 
                     start = display(start);
                     break;
@@ -193,5 +193,54 @@ struct node *insert_after(struct node *start)
     }
     preptr->next = new_node;
     new_node->next = ptr;
+    return start;
+}
+
+
+struct node *delete_beg(struct node *start) 
+{
+    struct node *ptr;
+    ptr = start;
+    if(start == NULL)
+        printf("List is Empty");
+    else {
+    start = start->next;
+    free(ptr);
+    }
+    return start;
+}
+
+struct node *delete_end(struct node *start)
+{
+    struct node *ptr, *preptr;
+    preptr, ptr = start;
+    if( start == NULL)
+        printf("List is Empty");
+    else {
+        while(ptr->next != NULL)
+        {
+            preptr = ptr;
+            ptr = ptr->next;
+        }
+        preptr->next = NULL;
+        free(ptr);
+    }
+    return start;
+}
+
+struct node *delete_after(struct node *start)
+{
+    struct node *ptr, *preptr;
+    int num;
+    printf("Enter value of the node to delete the node after that node: ");
+    scanf("%d", &num);
+    preptr, ptr = start;
+    while(preptr->data != num)
+    {
+        preptr = ptr;
+        ptr = ptr->next;
+    }
+    preptr->next = ptr->next;
+    free(ptr);
     return start;
 }
