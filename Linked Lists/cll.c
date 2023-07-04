@@ -8,7 +8,7 @@ struct node {
 };
 
 struct node *start;
-// struct node *create_cll(struct node *start);
+struct node *create_cll(struct node *start);
 // struct node *insert_beg(struct node *start);
 // struct node *insert_end(struct node *start);
 // struct node *insert_before(struct node *start);
@@ -16,7 +16,7 @@ struct node *start;
 // struct node *delete_beg(struct node *start);
 // struct node *delete_end(struct node *start);
 // struct node *delete_after(struct node *start);
-// struct node *display(struct node *start);
+struct node *display(struct node *start);
 
 int main() 
 {
@@ -40,9 +40,9 @@ int main()
 
         switch(choice) 
         {
-            // case 1:
-            // start = create_cll(start);
-            // break;
+            case 1:
+            start = create_cll(start);
+            break;
 
             // case 2:
             // start = insert_beg(start);
@@ -72,14 +72,57 @@ int main()
             // start = delete_after(start);
             // break;
 
-            // case 9:
-            // start = display(start);
-            // break;
+            case 9:
+            start = display(start);
+            break;
 
             default:
             printf("Invalid choice: \n");
 
         }
     } while( choice != 10);
+}
+
+struct node *create_cll(struct node *start)
+{
+    struct node *new_node, *ptr;
+    int val;
+    printf("Enter -1 to exit \n");
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    while( val != -1) 
+    {
+        new_node = (struct node *)malloc(sizeof(new_node));
+        new_node->data = val;
+        if(start == NULL)
+        {
+            start = new_node;
+            new_node->next = start;
+        }
+        else 
+        {
+            ptr = start;
+            while(ptr->next != start)
+                ptr = ptr->next;
+            ptr->next = new_node;
+            new_node->next = start;
+        }
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    }
+    return start;
+}
+
+struct node *display(struct node *start)
+{
+    struct node *ptr;
+    ptr = start;
+    while( ptr->next != start)
+    {
+        printf("%d \n", ptr->data);
+        ptr=ptr->next;
+    }
+     printf("%d \n", ptr->data);
+    return start;
 }
 
