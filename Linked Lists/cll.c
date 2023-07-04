@@ -9,7 +9,7 @@ struct node {
 
 struct node *start;
 struct node *create_cll(struct node *start);
-// struct node *insert_beg(struct node *start);
+struct node *insert_beg(struct node *start);
 // struct node *insert_end(struct node *start);
 // struct node *insert_before(struct node *start);
 // struct node *insert_after(struct node *start);
@@ -44,9 +44,9 @@ int main()
             start = create_cll(start);
             break;
 
-            // case 2:
-            // start = insert_beg(start);
-            // break;
+            case 2:
+            start = insert_beg(start);
+            break;
 
             // case 3:
             // start = insert_end(start);
@@ -92,7 +92,7 @@ struct node *create_cll(struct node *start)
     scanf("%d", &val);
     while( val != -1) 
     {
-        new_node = (struct node *)malloc(sizeof(new_node));
+        new_node = (struct node *)malloc(sizeof(struct node));
         new_node->data = val;
         if(start == NULL)
         {
@@ -116,6 +116,11 @@ struct node *create_cll(struct node *start)
 struct node *display(struct node *start)
 {
     struct node *ptr;
+    if (start == NULL)
+    {
+        printf(" List is Empty");
+        return start;
+    }
     ptr = start;
     while( ptr->next != start)
     {
@@ -123,6 +128,32 @@ struct node *display(struct node *start)
         ptr=ptr->next;
     }
      printf("%d \n", ptr->data);
+    return start;
+}
+
+struct node *insert_beg(struct node *start)
+{
+    struct node *new_node, *ptr;
+    new_node = (struct node *)malloc(sizeof(struct node));
+    int val;
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    new_node->data = val;
+    if( start == NULL)
+    {
+        new_node ->next = new_node;
+        start = new_node;
+    }
+    else
+    {
+    ptr = start;
+    while(ptr->next != start)
+        ptr = ptr->next;
+    ptr->next = new_node;
+    new_node->next = start;
+    start = new_node;
+    }
+
     return start;
 }
 
