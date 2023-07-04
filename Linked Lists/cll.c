@@ -10,7 +10,7 @@ struct node {
 struct node *start;
 struct node *create_cll(struct node *start);
 struct node *insert_beg(struct node *start);
-// struct node *insert_end(struct node *start);
+struct node *insert_end(struct node *start);
 // struct node *insert_before(struct node *start);
 // struct node *insert_after(struct node *start);
 // struct node *delete_beg(struct node *start);
@@ -48,9 +48,9 @@ int main()
             start = insert_beg(start);
             break;
 
-            // case 3:
-            // start = insert_end(start);
-            // break;
+            case 3:
+            start = insert_end(start);
+            break;
 
             // case 4:
             // start = insert_before(start);
@@ -157,3 +157,27 @@ struct node *insert_beg(struct node *start)
     return start;
 }
 
+struct node *insert_end(struct node *start)
+{
+    struct node *new_node, *ptr;
+    new_node = (struct node *)malloc(sizeof(struct node));
+    int val;
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    new_node->data = val;
+
+    if(start == NULL)
+    {
+        new_node->next = new_node;
+        start = new_node;
+    }
+    else
+    {
+        ptr = start;
+        while(ptr->next != start)
+            ptr = ptr->next;
+        ptr->next = new_node;
+        new_node->next = start;
+    }
+    return start;
+}
