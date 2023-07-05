@@ -13,7 +13,7 @@ struct node *insert_beg(struct node *start);
 struct node *insert_end(struct node *start);
 struct node *insert_before(struct node *start);
 struct node *insert_after(struct node *start);
-// struct node *delete_beg(struct node *start);
+struct node *delete_beg(struct node *start);
 // struct node *delete_end(struct node *start);
 // struct node *delete_after(struct node *start);
 struct node *display(struct node *start);
@@ -60,9 +60,9 @@ int main()
             start = insert_after(start);
             break;
 
-            // case 6:
-            // start = delete_beg(start);
-            // break;
+            case 6:
+            start = delete_beg(start);
+            break;
 
             // case 7:
             // start = delete_end(start);
@@ -236,6 +236,18 @@ struct node *insert_after(struct node *start)
 
     preptr->next = new_node;
     new_node->next = ptr;
+    return start;
+}
+
+struct node *delete_beg(struct node *start)
+{
+    struct node *ptr;
+    ptr = start;
+    while(ptr->next != start)
+        ptr = ptr->next;
+    ptr->next = start->next;
+    free(start);
+    start = ptr->next;
     return start;
 }
 
