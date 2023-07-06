@@ -11,7 +11,7 @@ struct node {
 
 struct node *start;
 // struct node *create_dll(struct node *start);
-// struct node *insert_beg(struct node *start);
+struct node *insert_beg(struct node *start);
 // struct node *insert_end(struct node *start);
 // struct node *insert_before(struct node *start);
 // struct node *insert_after(struct node *start);
@@ -19,7 +19,7 @@ struct node *start;
 // struct node *delete_end(struct node *start);
 // struct node *delete_before(struct node *start);
 // struct node *delete_after(struct node *start);
-// struct node *display(struct node *start);
+struct node *display(struct node *start);
 // struct node *display_rev(struct node *start);
 
 int main() {
@@ -47,9 +47,9 @@ int main() {
             // start = create_dll(start);
             // break;
 
-            // case 2:
-            // start = insert_beg(start);
-            // break;
+            case 2:
+            start = insert_beg(start);
+            break;
 
             // case 3:
             // start = insert_end(start);
@@ -79,9 +79,9 @@ int main() {
             // start = delete_after(start);
             // break;
 
-            // case 10:
-            // start = display(start);
-            // break;
+            case 10:
+            start = display(start);
+            break;
 
             // case 11:
             // start = display_rev(start);
@@ -95,5 +95,49 @@ int main() {
     } while(choice != 12 );
 }
 
+struct node *insert_beg(struct node *start)
+{
+    struct node *new_node, *ptr;
+    new_node = (struct node *)malloc(sizeof(struct node));
+    int val;
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    new_node->data = val;
 
+    if(start == NULL)
+    {
+        new_node->prev = NULL;
+        new_node->next = NULL;
+        start = new_node;
+    }
+
+    else {
+        ptr = start;
+        ptr->prev = new_node;
+        new_node->prev = NULL;
+        new_node->next = ptr;
+        start = new_node;
+    }
+
+    return start;
+}
+
+
+struct node *display(struct node *start)
+{
+    struct node *ptr;
+    if(start == NULL)
+        printf("The List is Empty");
+    else 
+    {
+            ptr = start;
+            while( ptr->next != NULL)
+            {
+                printf("%d \n", ptr->data);
+                ptr=ptr->next;
+            }
+             printf("%d \n", ptr->data);
+    }
+    return start;
+}
 
