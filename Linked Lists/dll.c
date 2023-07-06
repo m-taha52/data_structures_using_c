@@ -10,7 +10,7 @@ struct node {
 };
 
 struct node *start;
-// struct node *create_dll(struct node *start);
+struct node *create_dll(struct node *start);
 struct node *insert_beg(struct node *start);
 // struct node *insert_end(struct node *start);
 // struct node *insert_before(struct node *start);
@@ -43,9 +43,9 @@ int main() {
         
         switch(choice) 
         {
-            // case 1:
-            // start = create_dll(start);
-            // break;
+            case 1:
+            start = create_dll(start);
+            break;
 
             case 2:
             start = insert_beg(start);
@@ -93,6 +93,40 @@ int main() {
 
         }
     } while(choice != 12 );
+}
+
+struct node *create_dll(struct node *start)
+{
+    struct node *new_node,*ptr;
+    int val;
+    printf("Enter -1 to exit: \n");
+    printf("Enter value for the node: ");
+    scanf("%d", &val);
+
+    while (val != -1)
+    {
+        new_node = (struct node *)malloc(sizeof(struct node));
+        new_node->data = val;
+        if (start == NULL)
+        {
+            new_node->next = NULL;
+            new_node->prev = NULL;
+            start = new_node;
+        }
+        else
+        {
+            ptr = start;
+            while(ptr->next != NULL)
+                ptr = ptr->next;
+            ptr->next = new_node;
+            new_node->prev = ptr;
+            new_node->next = NULL;
+        }
+         printf("Enter value for the node: ");
+         scanf("%d", &val);
+    }
+
+    return start;
 }
 
 struct node *insert_beg(struct node *start)
