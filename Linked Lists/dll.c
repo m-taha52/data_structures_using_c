@@ -14,7 +14,7 @@ struct node *create_dll(struct node *start);
 struct node *insert_beg(struct node *start);
 struct node *insert_end(struct node *start);
 struct node *insert_before(struct node *start);
-// struct node *insert_after(struct node *start);
+struct node *insert_after(struct node *start);
 // struct node *delete_beg(struct node *start);
 // struct node *delete_end(struct node *start);
 // struct node *delete_before(struct node *start);
@@ -59,9 +59,9 @@ int main() {
             start = insert_before(start);
             break;
 
-            // case 5:
-            // start = insert_after(start);
-            // break;
+            case 5:
+            start = insert_after(start);
+            break;
 
             // case 6:
             // start = delete_beg(start);
@@ -230,4 +230,27 @@ struct node *insert_before(struct node *start)
     }
 
     return start;
+}
+
+struct node *insert_after(struct node *start)
+{
+    struct node *new_node, *ptr;
+    new_node = (struct node *)malloc(sizeof(struct node));
+    int val, num;
+    printf("Enter value of node after which to insert node: ");
+    scanf("%d", &num);
+    printf("Enter value for the node: ");
+    scanf("%d", &val);
+    new_node->data = val;
+    ptr = start;
+    while(ptr->data != num )
+        ptr = ptr->next;
+    new_node->prev = ptr;
+    new_node->next = ptr->next;
+    ptr->next = new_node;
+    if(ptr->next != NULL)
+    {
+        ptr->next->prev = new_node;
+    }
+     return start;
 }
