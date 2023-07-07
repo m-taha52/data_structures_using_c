@@ -15,7 +15,7 @@ struct node *insert_beg(struct node *start);
 struct node *insert_end(struct node *start);
 struct node *insert_before(struct node *start);
 struct node *insert_after(struct node *start);
-// struct node *delete_beg(struct node *start);
+struct node *delete_beg(struct node *start);
 // struct node *delete_end(struct node *start);
 // struct node *delete_before(struct node *start);
 // struct node *delete_after(struct node *start);
@@ -63,9 +63,9 @@ int main() {
             start = insert_after(start);
             break;
 
-            // case 6:
-            // start = delete_beg(start);
-            // break;
+            case 6:
+            start = delete_beg(start);
+            break;
 
             // case 7:
             // start = delete_end(start);
@@ -254,3 +254,21 @@ struct node *insert_after(struct node *start)
     }
      return start;
 }
+
+struct node *delete_beg(struct node *start)
+{
+    struct node *ptr;
+    if (start == NULL)
+    {
+        printf("The List is Empty: \n ");
+    }
+    else 
+    {
+    ptr = start;
+    ptr->next->prev = NULL;
+    start = start->next;
+    free(ptr);
+    }
+    return start;
+}
+
