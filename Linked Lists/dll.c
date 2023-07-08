@@ -20,7 +20,7 @@ struct node *delete_end(struct node *start);
 struct node *delete_before(struct node *start);
 struct node *delete_after(struct node *start);
 struct node *display(struct node *start);
-// struct node *display_rev(struct node *start);
+struct node *display_rev(struct node *start);
 
 int main() {
     int choice;
@@ -83,9 +83,9 @@ int main() {
             start = display(start);
             break;
 
-            // case 11:
-            // start = display_rev(start);
-            // break;
+            case 11:
+            start = display_rev(start);
+            break;
 
             default:
             printf("Invalid Option \n ");
@@ -336,5 +336,20 @@ struct node *delete_after(struct node *start)
     preptr->next = ptr->next;
     ptr->next->prev = ptr->prev;
     free(ptr);
+    return start;
+}
+
+struct node *display_rev(struct node *start)
+{
+    struct node *ptr;
+    ptr = start;
+    while( ptr->next != NULL)
+        ptr = ptr->next;
+    while(ptr->prev != NULL)
+    {
+        printf(" %d \n", ptr->data);
+        ptr = ptr->prev;
+    }
+     printf(" %d \n", ptr->data);
     return start;
 }
