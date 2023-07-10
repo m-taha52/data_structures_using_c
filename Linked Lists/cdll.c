@@ -10,7 +10,7 @@ struct node
 };
 
 struct node *start;
-// struct node *create_cdll(struct node *start);
+struct node *create_cdll(struct node *start);
 // struct node *insert_beg(struct node *start);
 // struct node *insert_end(struct node *start);
 // struct node *insert_before(struct node *start);
@@ -19,8 +19,8 @@ struct node *start;
 // struct node *delete_end(struct node *start);
 // struct node *delete_before(struct node *start);
 // struct node *delete_after(struct node *start);
-// struct node *display(struct node *start);
-// struct node *display_rev(struct node *start);
+struct node *display(struct node *start);
+struct node *display_rev(struct node *start);
 
 
 int main() 
@@ -46,9 +46,9 @@ int main()
 
         switch(choice)
         {
-            // case 1:
-            // start = create_cdll(start);
-            // break;
+            case 1:
+            start = create_cdll(start);
+            break;
 
             // case 2:
             // start = insert_beg(start);
@@ -82,13 +82,13 @@ int main()
             // start = delete_after(start);
             // break;
 
-            // case 10:
-            // start = display(start);
-            // break;
+            case 10:
+            start = display(start);
+            break;
 
-            // case 11:
-            // start = display_rev(start);
-            // break;
+            case 11:
+            start = display_rev(start);
+            break;
 
             default:
             printf("Enter a valid option: ");
@@ -97,5 +97,70 @@ int main()
 
         }
     } while( choice != 12);
+}
+
+struct node *create_cdll(struct node *start)
+{
+    struct node *new_node, *ptr;
+    int val;
+    printf("Enter -1 to exit: \n");
+    printf("Enter a value: ");
+    scanf("%d", &val);
+    while( val != -1)
+    {
+        new_node = (struct node *)malloc(sizeof(struct node));
+        new_node->data = val;
+        if(start == NULL)
+        {
+            new_node->next = new_node;
+            new_node->prev = new_node;
+            start = new_node;
+        }
+        else 
+        {
+            ptr = start;
+            while (ptr->next != start)
+                ptr = ptr->next;
+            ptr->next = new_node;
+            new_node->prev = ptr;
+            new_node->next = start;
+            start->prev = new_node;
+         
+        }
+        printf("Enter a value: ");
+        scanf("%d", &val);
+    }
+    return start;
+}
+
+struct node *display(struct node *start)
+{
+    struct node *ptr;
+    ptr = start;
+    while (ptr->next != start)
+    {
+        printf("%d \n", ptr->data);
+        ptr = ptr->next;
+    }
+     printf("%d \n", ptr->data);
+     return start;
+}
+
+struct node *display_rev(struct node *start)
+{
+    struct node *ptr, *last_ptr;
+    ptr = start;
+    while (ptr->next != start)
+    {
+        ptr = ptr->next;
+    }
+    last_ptr = ptr;
+    while(ptr->prev != last_ptr)
+    {
+        printf("\n %d", ptr->data);
+        ptr = ptr->prev;
+    }
+    printf("\n %d", ptr->data);
+    return start;
 }
 
