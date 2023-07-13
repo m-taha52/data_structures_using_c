@@ -18,7 +18,7 @@ struct node *insert_after(struct node *start);
 struct node *delete_beg(struct node *start);
 struct node *delete_end(struct node *start);
 struct node *delete_before(struct node *start);
-// struct node *delete_after(struct node *start);
+struct node *delete_after(struct node *start);
 struct node *display(struct node *start);
 struct node *display_rev(struct node *start);
 
@@ -78,9 +78,9 @@ int main()
             start = delete_before(start);
             break;
 
-            // case 9:
-            // start = delete_after(start);
-            // break;
+            case 9:
+            start = delete_after(start);
+            break;
 
             case 10:
             start = display(start);
@@ -324,5 +324,28 @@ struct node *delete_before(struct node *start)
         free(preptr);
     }
      return start;
+}
+
+struct node *delete_after(struct node *start)
+{
+    if(start == NULL)
+        printf("Empty List");
+    else 
+    {
+        struct node *preptr, *ptr;
+        preptr = ptr = start;
+        int num;
+        printf("Enter value after which to delete node: ");
+        scanf("%d",&num);
+        while(preptr->data != num)
+        {
+            preptr = ptr;
+            ptr=ptr->next;
+        }
+        preptr->next = ptr->next;
+        ptr->next->prev = preptr;
+        free(ptr);
+    }
+          return start;
 }
 
