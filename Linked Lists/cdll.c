@@ -13,7 +13,7 @@ struct node *start;
 struct node *create_cdll(struct node *start);
 struct node *insert_beg(struct node *start);
 struct node *insert_end(struct node *start);
-// struct node *insert_before(struct node *start);
+struct node *insert_before(struct node *start);
 // struct node *insert_after(struct node *start);
 // struct node *delete_beg(struct node *start);
 // struct node *delete_end(struct node *start);
@@ -58,9 +58,9 @@ int main()
             start = insert_end(start);
             break;
 
-            // case 4:
-            // start = insert_before(start);
-            // break;
+            case 4:
+            start = insert_before(start);
+            break;
 
             // case 5:
             // start = insert_after(start);
@@ -216,5 +216,25 @@ struct node *insert_end(struct node *start)
         new_node->next = start;
         start->prev = new_node;
     }
+    return start;
+}
+
+struct node *insert_before(struct node *start)
+{
+    struct node *new_node, *ptr;
+    new_node = (struct node *)malloc(sizeof(struct node));
+    int num, val;
+    printf("Enter value of node before which you want to insert node: ");
+    scanf("%d", &num);
+    printf("Enter value to insert in Node: ");
+    scanf("%d", &val);
+    new_node->data = val;
+    ptr = start;
+    while(ptr->data != num)
+        ptr = ptr->next;
+    ptr->prev->next = new_node;
+    new_node->prev = ptr->prev;
+    new_node->next = ptr;
+    ptr->prev = new_node;
     return start;
 }
